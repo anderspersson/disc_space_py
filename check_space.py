@@ -1,6 +1,5 @@
 # Python program to explain shutil.disk_usage() method
 
-# importing shutil module
 import shutil
 import math
 import sys
@@ -16,10 +15,7 @@ def TranslateTypeSize(stat,sizeType):
             adj = 1073741824
         case "TB":
             adj = 1099511627776
-    stat.total = stat.total / adj
-    stat.free = stat.free / adj
-    stat.used = stat.used / adj
-    return stat
+    return {"total":round(stat.total / adj,2),"free": round(stat.free / adj,2), "used":round(stat.used / adj,2)}
 
 def main():    
     if( len(sys.argv) < 2):
@@ -35,19 +31,18 @@ def main():
         path = args[1]
 
     stat = shutil.disk_usage(path)
-    # stat = TranslateTypeSize(stat,SizeType)
-    used_p = math.floor((stat.used /stat.total ) * 100)
+    diskStat = TranslateTypeSize(stat,SizeType)
+    print( diskStat )
+    used_p = math.floor((diskStat["used"] / diskStat["total"] ) * 100)
     left_p = 100 - used_p
 
     # Print disk usage statistics
     print("Disk usage statistics:")
-    print(f"Total: {stat.total} {SizeType}")
-    print(f"Free: {stat.free} {SizeType}")
-    print(f"Used: {stat.used} {SizeType}")
+    print(f"Total: {diskStat['total']} {SizeType}")
+    print(f"Free: {diskStat['free']} {SizeType}")
+    print(f"Used: {diskStat['used']} {SizeType}")
     print(f"Used: {used_p} %")
     print(f"Left: {left_p} %: ")
-    print(stat)
-
 
 
 main()
