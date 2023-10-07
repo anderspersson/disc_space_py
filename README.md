@@ -1,9 +1,11 @@
-# DiscSpace
+# disc_space_py
 Check free discspace on commandline.
 
 ## How to use
-check_space.py SizeType Path
+disc_space-py --help
 
 ## Example
-python check_space.py MB c:\
+python .\check_space.py c:\
+python .\check_space.py -t GB c:\
+python .\check_space.py -t GB -v c:\
 
